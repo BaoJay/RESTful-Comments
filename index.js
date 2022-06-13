@@ -35,8 +35,22 @@ const comments = [
 ];
 
 app.get("/comments", (req, res) => {
-  // const { username, comment } = comments;
   res.render("comments/index", { comments });
+});
+
+app.get("/comments/new", (req, res) => {
+  res.render("comments/new");
+});
+
+// Create a POST route
+app.post("/comments", (req, res) => {
+  console.log(req.body);
+  // Phải destructuring object mới lấy data được
+  const { username, comment } = req.body;
+  comments.push({ username, comment });
+  // res.send("Ngon lành!!!! It worked!!");
+  // Redirect url and update the info
+  res.redirect("/comments");
 });
 
 app.get("/comtam", (req, res) => {
