@@ -49,7 +49,7 @@ app.get("/comments/new", (req, res) => {
   res.render("comments/new");
 });
 
-// Create a POST route =======================
+// Create a POST method =======================
 app.post("/comments", (req, res) => {
   console.log(req.body);
   // Phải destructuring object mới lấy data được
@@ -60,7 +60,7 @@ app.post("/comments", (req, res) => {
   res.redirect("/comments");
 });
 
-// Create a SHOW route ======================
+// Create a SHOW method ======================
 app.get("/comments/:id", (req, res) => {
   // Destructuring data
   const { id } = req.params;
@@ -71,6 +71,20 @@ app.get("/comments/:id", (req, res) => {
   // res.send("được nè!");
   // Redirect đến show.ejs
   res.render("comments/show", { comment });
+});
+
+// Create a PATCH method =================================
+// Test HTTP request method code in POSTMAN
+app.patch("/comments/:id", (req, res) => {
+  // Lấy id từ trên url query string
+  const { id } = req.params;
+  // Lấy key-value từ req.body via Postman
+  const replaceComment = req.body.edit;
+  const foundComment = comments.find((m) => m.id === id);
+  // Gán new text cho comment mới
+  foundComment.comment = replaceComment;
+  console.log(req.body);
+  res.redirect("/comments");
 });
 
 // // ====== Test comtam ==================
