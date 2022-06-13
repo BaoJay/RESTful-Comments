@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Comment</title>
+  </head>
+  <body>
+    <h1>Make a new comment</h1>
+    <!-- Action: khi bấm nút Submit thì sẽ điều hướng về url này -->
+    <form action="http://localhost:3005/comments/" method="post">
+      <section>
+        <label for="username">Enter username:</label>
+        <input
+          type="text"
+          placeholder="username"
+          name="username"
+          id="username"
+        />
+      </section>
+      <br />
+      <section>
+        <label for="comment">Add comment</label>
+        <textarea
+          name="comment"
+          id="comment"
+          placeholder="Comment here..."
+          cols="25"
+          rows="5"
+        ></textarea>
+      </section>
+      <button>Submit!</button>
+    </form>
+  </body>
+</html>
