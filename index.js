@@ -23,7 +23,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
 
 // Add comments data
-const comments = [
+let comments = [
   {
     id: uuid(),
     username: "Bao",
@@ -96,7 +96,18 @@ app.patch("/comments/:id/edit", (req, res) => {
 app.get("/comments/:id/edit", (req, res) => {
   const { id } = req.params;
   const comment = comments.find((m) => m.id === id);
+  // res.render thì không cần '/' phía trước
   res.render("comments/edit", { comment });
+});
+
+// Create a DELETE ========================
+app.delete("/comments/:id", (req, res) => {
+  const { id } = req.params;
+  // Tạo array mới mà không có id của user này
+  // Và update lại array mới này
+  comments = comments.filter((m) => m.id !== id);
+  // Luôn luôn nhớ có '/' phía trước
+  res.redirect("/comments");
 });
 
 // // ====== Test comtam ==================
