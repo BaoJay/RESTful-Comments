@@ -4,6 +4,8 @@ const app = express();
 const path = require("path");
 // Provide a new name for v4
 const { v4: uuid } = require("uuid");
+// Install method-override
+const methodOverride = require("method-override");
 
 // app.use is executed everytime the request
 // is sent to the server
@@ -11,6 +13,9 @@ const { v4: uuid } = require("uuid");
 app.use(express.urlencoded({ extended: true }));
 // Parse data application/json
 app.use(express.json());
+
+// Added method-override to use _method in query string
+app.use(methodOverride("_method"));
 
 // Tell the app that we use EJS
 app.set("view engine", "ejs");
@@ -75,16 +80,23 @@ app.get("/comments/:id", (req, res) => {
 
 // Create a PATCH method =================================
 // Test HTTP request method code in POSTMAN
-app.patch("/comments/:id", (req, res) => {
+app.patch("/comments/:id/edit", (req, res) => {
   // Lấy id từ trên url query string
   const { id } = req.params;
   // Lấy key-value từ req.body via Postman
-  const replaceComment = req.body.edit;
+  const replaceComment = req.body.editComment;
   const foundComment = comments.find((m) => m.id === id);
   // Gán new text cho comment mới
   foundComment.comment = replaceComment;
   console.log(req.body);
   res.redirect("/comments");
+});
+
+// Create a EDIT method ================
+app.get("/comments/:id/edit", (req, res) => {
+  const { id } = req.params;
+  const comment = comments.find((m) => m.id === id);
+  res.render("comments/edit", { comment });
 });
 
 // // ====== Test comtam ==================
