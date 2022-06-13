@@ -10,7 +10,10 @@
     <h1>Comments</h1>
     <ul>
       <% for (let com of comments) {%>
-      <li><%= com.comment %> - <b><%= com.username %></b></li>
+      <li>
+        <%= com.comment %> - <b><%= com.username %></b>
+        <a href="/comments/<%= com.id %>">More details</a>
+      </li>
       <% } %>
     </ul>
     <form action="http://localhost:3005/comments/new" method="get">
